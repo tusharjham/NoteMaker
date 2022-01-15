@@ -1,8 +1,13 @@
 import React from "react";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import "./Header.css";
 const Header = () => {
   return (
-    <Navbar bg="dark" expand="lg" className="navbar-dark">
+    <Navbar
+      bg="dark"
+      expand="lg"
+      className="nv navbar-dark position-sticky top-0 "
+    >
       <Container className="p-2">
         <Navbar.Brand>NoteMaker</Navbar.Brand>
         <Navbar.Toggle aria-controls="nav-1" />
