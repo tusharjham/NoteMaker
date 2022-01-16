@@ -1,0 +1,86 @@
+.landingPage {
+  height: 97%;
+  width: 100%;
+  background: url("../../images/l2.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.landing-page-container {
+  height: 46%;
+  width: 27%;
+  position: fixed;
+  right: 32%;
+  top: 24%;
+}
+.lp-p1 {
+  font-size: 6rem;
+}
+.lp-p2 {
+  font-size: 2.5rem;
+  margin-top: -4%;
+}
+@media only screen and (max-width: 1300px) {
+  html {
+    font-size: 11px;
+  }
+}
+@media only screen and (max-width: 1020px) {
+  html {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 945px) {
+  html {
+    font-size: 9px;
+  }
+}
+@media only screen and (max-width: 850px) {
+  html {
+    font-size: 8.5px;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .landing-page-container {
+    height: 46%;
+    width: 30%;
+    position: fixed;
+    right: 30%;
+    top: 24%;
+  }
+}
+@media only screen and (max-width: 695px) {
+  .landing-page-container {
+    height: 46%;
+    width: 39%;
+    position: fixed;
+    right: 23%;
+    top: 24%;
+  }
+}
+@media only screen and (max-width: 550px) {
+  html {
+    font-size: 8px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .landing-page-container {
+    height: 46%;
+    width: 60%;
+    position: fixed;
+    right: 11%;
+    top: 24%;
+  }
+}
+@media only screen and (max-width: 310px) {
+  html {
+    font-size: 7px;
+  }
+}
+@media only screen and (max-width: 250px) {
+  html {
+    font-size: 6px;
+  }
+}
