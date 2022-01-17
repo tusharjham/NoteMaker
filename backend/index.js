@@ -1,6 +1,7 @@
 const express = require("express");
 const notes = require("./data/notes");
 const app = express();
+
 // const dotenv = require("dotenv");
 
 // dotenv.config();
@@ -8,6 +9,9 @@ const PORT = 5000 || process.env.port;
 
 app.get("/", (req, res) => {
   res.send("<h1>HEllo World</h1>");
+});
+app.get("/api/notes", (req, res) => {
+  res.send(notes);
 });
 
 app.get("/api/notes/:id", (req, res) => {
