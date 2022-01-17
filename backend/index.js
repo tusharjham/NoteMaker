@@ -1,10 +1,10 @@
 const express = require("express");
+const mongo = require("./config/db");
 const notes = require("./data/notes");
 const app = express();
-
-// const dotenv = require("dotenv");
-
-// dotenv.config();
+const dotenv = require("dotenv");
+dotenv.config();
+mongo();
 const PORT = 5000 || process.env.port;
 
 app.get("/", (req, res) => {
