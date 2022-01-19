@@ -10,7 +10,7 @@ const LandingPage = () => {
           <p className="lp-p2  ">Make your own notes..</p>
         </div>
         <div className="landing-page-buttoncontainer mt-5 p-0">
-          <a href="">
+          <a href="/login">
             <Button
               size="lg"
               variant="outline-dark"
@@ -19,7 +19,7 @@ const LandingPage = () => {
               Login
             </Button>
           </a>
-          <a href="">
+          <a href="/register">
             <Button
               size="lg"
               variant="outline-dark"

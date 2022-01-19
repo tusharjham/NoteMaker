@@ -3,8 +3,13 @@ const mongo = require("./config/db");
 const notes = require("./data/notes");
 const app = express();
 const dotenv = require("dotenv");
+const userRoute = require("./routes/userRoute");
+
 dotenv.config();
 mongo();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(userRoute);
 const PORT = 5000 || process.env.port;
 
 app.get("/", (req, res) => {

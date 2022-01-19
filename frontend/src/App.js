@@ -5,6 +5,8 @@ import "./App.css";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNotes from "./screens/MyNotes/MyNotes";
+import LoginPage from "./screens/LoginScreen/LoginPage";
+import RegisterPage from "./screens/RegisterScreen/RegisterPage";
 const App = () => {
   return (
     <div className="main">
@@ -13,6 +15,8 @@ const App = () => {
         <main style={{ height: "100%" }}>
           <Routes>
             <Route path="/" element={<LandingPage />} exact />
+            <Route path="/login" element={<LoginPage />} exact />
+            <Route path="/register" element={<RegisterPage />} exact />
             <Route path="/mynotes" element={<MyNotes />} exact />
           </Routes>
         </main>
