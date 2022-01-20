@@ -20,11 +20,10 @@ userRoute.post("/api/userregister", async (req, res) => {
     }
     const userData = User.create({ name, email, password, pic });
     // const result = await userData.save();
-    res.status(200).json({
+    res.status(200).send({
       _id: userData._id,
       name,
       email,
-      password,
       token: generateToken(userData._id),
     });
     // res.json(result);
