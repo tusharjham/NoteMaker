@@ -28,7 +28,7 @@ userRoute.post("/api/userregister", async (req, res) => {
     });
     // res.json(result);
   } catch (error) {
-    console.log("catch block", error.toString());
+    console.log(error.toString());
     res.status(400).json(error.toString());
   }
 });
@@ -40,12 +40,16 @@ userRoute.post("/api/userLogin", async (req, res) => {
     if (!userLogger) throw new Error("Invalid Username/Password");
     const check = await bcrypt.compare(password, userLogger.password);
     if (check) {
+      const token1 = generateToken(userLogger._id);
+      res.cookie("login", token1, {
+        expires: new Date(Date.now() + 300000),
+      });
       res.status(200).json({
         _id: userLogger._id,
         name: userLogger.name,
         email,
         pic: userLogger.pic,
-        token: generateToken(userLogger._id),
+        token: token1,
       });
     } else {
       throw new Error("Invalid Username/Password");

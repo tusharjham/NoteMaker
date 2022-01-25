@@ -3,6 +3,7 @@ import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const MyNotes = () => {
   const [notes, setNotes] = useState([]);

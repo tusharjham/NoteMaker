@@ -1,41 +1,32 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { signup, signupFail } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
 import MainScreen from "../../components/MainScreen";
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
+  const User = useSelector((state) => state.User);
+  const { loading, error } = User;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-    if (password != confirmPassword) {
-      setError("Password doesn't match");
-    } else {
-      try {
-        const config = {
-          header: {
-            "Content-type": "application/json",
-          },
-        };
-        const { data } = await axios.post(
-          "/api/userregister",
-          { name, email, password },
-          config
-        );
-        console.log("Registered Succesfully", data);
-      } catch (error) {
-        setError(error.response.data);
+    try {
+      if (password === confirmPassword) {
+        dispatch(signup(name, email, password, confirmPassword));
+      } else {
+        throw new Error("Passoword doesn't matched");
       }
+    } catch (err) {
+      dispatch(signupFail(err.toString()));
     }
-    setLoading(false);
   };
   return (
     <div>
@@ -95,7 +86,7 @@ const RegisterPage = () => {
             </Button>
           </Form>
           <div>
-            Already Have an account.<a href="/login">Login</a>
+            Already Have an account.<Link to="/login">Login</Link>
           </div>
         </div>
       </MainScreen>

@@ -1,37 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
 import MainScreen from "../../components/MainScreen";
+import { login } from "../../actions/userActions";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.User);
+  const { isLoggedIn, loading, userInfo, error } = userLogin;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
+  useEffect(() => {});
   const submitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      const { data } = await axios.post(
-        "/api/userLogin",
-        { email, password },
-        config
-      );
-      setError("");
-      console.log("backend data", data);
-    } catch (err) {
-      console.log("error displayed", err.response.data);
-      setError(err.response.data);
-    }
-    setLoading(false);
+    dispatch(login(email, password));
   };
 
   return (
@@ -66,7 +54,7 @@ const LoginPage = () => {
             </Button>
           </Form>
           <div>
-            New User? <a href="/register">Register here</a>
+            New User? <Link to="/register">Register here</Link>
           </div>
         </div>
       </MainScreen>
