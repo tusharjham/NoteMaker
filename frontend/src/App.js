@@ -7,7 +7,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNotes from "./screens/MyNotes/MyNotes";
 import LoginPage from "./screens/LoginScreen/LoginPage";
 import RegisterPage from "./screens/RegisterScreen/RegisterPage";
+import { useSelector } from "react-redux";
 const App = () => {
+  const User = useSelector((state) => state.User);
+  const { isLoggedIn } = User;
   return (
     <div className="main">
       <BrowserRouter>

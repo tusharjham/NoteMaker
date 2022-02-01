@@ -42,7 +42,7 @@ userRoute.post("/api/userLogin", async (req, res) => {
     if (check) {
       const token1 = generateToken(userLogger._id);
       res.cookie("login", token1, {
-        expires: new Date(Date.now() + 300000),
+        expiresIn: new Date(Date.now() + 300000),
       });
       res.status(200).json({
         _id: userLogger._id,
@@ -54,6 +54,15 @@ userRoute.post("/api/userLogin", async (req, res) => {
     } else {
       throw new Error("Invalid Username/Password");
     }
+  } catch (err) {
+    res.status(400).send(err.toString());
+  }
+});
+
+userRoute.post("/api/userLogout", async (req, res) => {
+  try {
+    res.clearCookie("login");
+    res.status(200).send("loggedOut succesfully");
   } catch (err) {
     res.status(400).send(err.toString());
   }
