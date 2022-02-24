@@ -12,8 +12,6 @@ import {
   SIGNUP_SUCCESS,
 } from "./actionTypes";
 
-const navigate = useNavigate;
-
 const authentication = () => {};
 
 export const login = (email, password) => async (dispatch) => {
@@ -30,7 +28,6 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
     dispatch(loginSuccess(data));
-    navigate("/mynotes");
   } catch (error) {
     const err = error.response.data;
     dispatch(loginFail(err));
@@ -81,9 +78,6 @@ export const logout = () => async (dispatch) => {
   try {
     const userOut = await axios.post("/api/userLogout");
     dispatch(logoutSuccess());
-    navigate("/", () => {
-      console.log("Navingating it");
-    });
   } catch (err) {
     dispatch(logoutFail(err.response.data));
   }

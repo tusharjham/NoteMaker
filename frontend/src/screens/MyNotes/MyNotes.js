@@ -1,78 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { Accordion, Badge, Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Button, Accordion, Card, Badge } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNote, listNotes } from "../../actions/notesAction";
+import ErrorMessage from "../../components/ErrorMessage";
+import LoadingMessage from "../../components/LoadingMessage";
 
-const MyNotes = () => {
-  const [notes, setNotes] = useState([]);
+const MyNotes = ({ search }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userLogin = useSelector((state) => state.User);
+  const Notes = useSelector((state) => state.Notes);
+  const { notes, error, loading } = Notes;
+  const { isLoggedIn, userInfo } = userLogin;
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure want to delete it")) {
-      console.log("deleted");
+      dispatch(deleteNote(id));
     }
   };
-  const fetchData = async () => {
-    const { data } = await axios.get("/api/notes");
-    setNotes(data);
-  };
   useEffect(() => {
-    fetchData();
-  });
+    dispatch(listNotes());
+    // if (notes) {
+    //   console.log(notes);
+    // } else {
+    //   console.log("noteundefinded");
+    // }
+  }, [dispatch]);
   return (
     <div>
-      <MainScreen title="Welcome back Tushar">
+      <MainScreen title={`Welcom back ${userInfo.name}`}>
+        <ErrorMessage error={error} />
         <Button size="lg" variant="success">
           <Link
-            to="createnewnote"
+            to="/mynotes/createnote"
             style={{ textDecoration: "none", color: "whitesmoke" }}
           >
             Create a Note
           </Link>
         </Button>
-        {notes.map((note) => (
-          <Accordion className="mt-1 border-none" key={note._id}>
-            <Accordion.Item eventKey="0">
-              <Card className="mt-3">
-                <Card.Header
-                  style={{ flex: "1", cursor: "pointer" }}
-                  className="d-flex justify-content-between"
-                >
-                  <div style={{ fontSize: "1.2rem", width: "80%" }}>
-                    <Accordion.Header>{note.title}</Accordion.Header>
-                  </div>
-                  <div className="mt-2">
-                    <Button
-                      href={`/notes/${note._id}`}
-                      variant="warning"
-                      size="sm"
+        <LoadingMessage status={loading} />
+        {notes
+          .filter((filteredNote) =>
+            filteredNote.heading.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((note) => {
+            return (
+              <Accordion className="mt-1 border-none" key={note._id}>
+                <Accordion.Item eventKey="0">
+                  <Card className="mt-3">
+                    <Card.Header
+                      style={{ flex: "1", cursor: "pointer" }}
+                      className="d-flex justify-content-between"
                     >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      className="ms-1"
-                      onClick={() => deleteHandler(note._id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </Card.Header>
-                <Accordion.Body>
-                  <Card.Body className="mt-0 ms-3 mb-2 p-0">
-                    <h6>
-                      <Badge className="bg-dark text-white mt-2 mb-0">
-                        Category
-                      </Badge>
-                    </h6>
-                    <Card.Text>{note.desc}</Card.Text>
-                  </Card.Body>
-                </Accordion.Body>
-              </Card>
-            </Accordion.Item>
-          </Accordion>
-        ))}
+                      <div style={{ fontSize: "1.2rem", width: "80%" }}>
+                        <Accordion.Header>{note.heading}</Accordion.Header>
+                      </div>
+                      <div className="mt-2">
+                        <Link to={`/mynotes/${note._id}`}>
+                          <Button variant="warning" size="sm">
+                            Edit
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          className="ms-1"
+                          onClick={() => deleteHandler(note._id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </Card.Header>
+                    <Accordion.Body>
+                      <Card.Body className="mt-0 ms-3 mb-2 p-0">
+                        <h6>
+                          <Badge className="bg-dark text-white mt-2 mb-0">
+                            {`Category ${note.category}`}
+                          </Badge>
+                        </h6>
+                        <Card.Text>{note.desc}</Card.Text>
+                      </Card.Body>
+                    </Accordion.Body>
+                  </Card>
+                </Accordion.Item>
+              </Accordion>
+            );
+          })}
       </MainScreen>
     </div>
   );

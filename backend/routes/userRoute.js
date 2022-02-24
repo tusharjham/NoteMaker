@@ -1,71 +1,14 @@
-const bcrypt = require("bcryptjs");
 const express = require("express");
-const User = require("../models/userModel");
-const generateToken = require("../utils/generateToken");
+const {
+  userRegister,
+  userLogin,
+  userLogout,
+} = require("../controllers/userController");
 
 const userRoute = new express.Router();
 
-userRoute.get("/api/use", (req, res) => {
-  res.send("User selected");
-});
-
-userRoute.post("/api/userregister", async (req, res) => {
-  try {
-    const { name, email, password, pic } = req.body;
-    const check = await User.findOne({ email });
-    if (check) {
-      console.log("reached check");
-      res.status(400);
-      throw new Error("User already exists");
-    }
-    const userData = User.create({ name, email, password, pic });
-    // const result = await userData.save();
-    res.status(200).send({
-      _id: userData._id,
-      name,
-      email,
-      token: generateToken(userData._id),
-    });
-    // res.json(result);
-  } catch (error) {
-    console.log(error.toString());
-    res.status(400).json(error.toString());
-  }
-});
-
-userRoute.post("/api/userLogin", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const userLogger = await User.findOne({ email });
-    if (!userLogger) throw new Error("Invalid Username/Password");
-    const check = await bcrypt.compare(password, userLogger.password);
-    if (check) {
-      const token1 = generateToken(userLogger._id);
-      res.cookie("login", token1, {
-        expiresIn: new Date(Date.now() + 300000),
-      });
-      res.status(200).json({
-        _id: userLogger._id,
-        name: userLogger.name,
-        email,
-        pic: userLogger.pic,
-        token: token1,
-      });
-    } else {
-      throw new Error("Invalid Username/Password");
-    }
-  } catch (err) {
-    res.status(400).send(err.toString());
-  }
-});
-
-userRoute.post("/api/userLogout", async (req, res) => {
-  try {
-    res.clearCookie("login");
-    res.status(200).send("loggedOut succesfully");
-  } catch (err) {
-    res.status(400).send(err.toString());
-  }
-});
+userRoute.route("/api/userregister").post(userRegister);
+userRoute.route("/api/userLogin").post(userLogin);
+userRoute.route("/api/userLogout").post(userLogout);
 
 module.exports = userRoute;

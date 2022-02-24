@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/userActions";
 import "./Header.css";
-const Header = () => {
+const Header = ({ setSearch }) => {
   const User = useSelector((state) => state.User);
   const { isLoggedIn, userInfo } = User;
   const dispatch = useDispatch();
@@ -43,7 +43,11 @@ const Header = () => {
             <Navbar.Collapse id="nav-1">
               <Nav className="m-auto">
                 <Form className="mt-3 mt-lg-0">
-                  <Form.Control type="text" placeholder="Search..." />
+                  <Form.Control
+                    type="text"
+                    placeholder="Search..."
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
                 </Form>
               </Nav>
               <Nav>

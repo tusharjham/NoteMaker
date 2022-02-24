@@ -18,7 +18,6 @@ const initialUserState = {
 };
 
 export const userReducer = (state = initialUserState, action) => {
-  console.log("USER reducer called");
   switch (action.type) {
     case LOGIN_START:
     case SIGNUP_START:

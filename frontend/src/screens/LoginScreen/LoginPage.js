@@ -16,7 +16,11 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {});
+  useEffect(() => {
+    {
+      isLoggedIn && navigate("/mynotes");
+    }
+  });
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));
