@@ -12,11 +12,7 @@ const userRegister = async (req, res) => {
       throw new Error("User already exists");
     }
     const userData = User.create({ name, email, password, pic });
-    // const result = await userData.save();
     const token1 = generateToken(userData._id);
-    // res.cookie("login", token1, {
-    //   httpOnly: true,
-    // });
     res.header("login", token1);
     res.status(200).send({
       _id: userData._id,
@@ -24,8 +20,6 @@ const userRegister = async (req, res) => {
       email,
       token: token1,
     });
-
-    // res.json(result);
   } catch (error) {
     console.log(error.toString());
     res.status(400).json(error.toString());
@@ -67,4 +61,28 @@ const userLogout = async (req, res) => {
   }
 };
 
-module.exports = { userRegister, userLogin, userLogout };
+const updateUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      if (req.body.email != user.email) {
+        const email = req.body.email;
+        const check = await User.findOne({ email });
+        if (check) {
+          throw new Error("The email already exists");
+        }
+      }
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+    }
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    const updateUser = await user.save();
+    res.status(200).send(updateUser);
+  } catch (err) {
+    res.status(400).send(err.toString());
+  }
+};
+
+module.exports = { userRegister, userLogin, userLogout, updateUser };

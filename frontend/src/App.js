@@ -10,6 +10,8 @@ import RegisterPage from "./screens/RegisterScreen/RegisterPage";
 import { useSelector } from "react-redux";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import EditNote from "./screens/EditNote/EditNote";
+import EditProfile from "./screens/EditProfile/EditProfile";
+
 const App = () => {
   const User = useSelector((state) => state.User);
   const { isLoggedIn } = User;
@@ -24,6 +26,7 @@ const App = () => {
             <Route path="/" element={<LandingPage />} exact />
             <Route path="/login" element={<LoginPage />} exact />
             <Route path="/register" element={<RegisterPage />} exact />
+            <Route path="/editprofile" element={<EditProfile />} exact />
             <Route
               path="/mynotes"
               element={<MyNotes search={search} />}

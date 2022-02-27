@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
+  EDIT_PROFILE_FAIL,
+  EDIT_PROFILE_START,
+  EDIT_PROFILE_SUCCESS,
   LOGIN_FAIL,
   LOGIN_START,
   LOGIN_SUCCESS,
@@ -11,8 +14,6 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
 } from "./actionTypes";
-
-const authentication = () => {};
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -96,5 +97,39 @@ export function logoutFail(err) {
 export function logoutSuccess() {
   return {
     type: LOGOUT_SUCCESS,
+  };
+}
+
+export const editProfile = (name, email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EDIT_PROFILE_START,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const result = await axios.post(
+      "/api/userUpdate",
+      { name, email, password },
+      config
+    );
+    dispatch(editProfileSuccess(result.data));
+  } catch (err) {
+    dispatch(editProfileFailure("The email already exist"));
+  }
+};
+function editProfileSuccess(data) {
+  return {
+    type: EDIT_PROFILE_SUCCESS,
+    data,
+  };
+}
+export function editProfileFailure(err) {
+  console.log(err);
+  return {
+    type: EDIT_PROFILE_FAIL,
+    err,
   };
 }

@@ -61,6 +61,6 @@ function updateNoteRequest() {
 function updateNoteSuccess() {
   return { type: UPDATE_NOTE_SUCCESS };
 }
-function updateNoteFail(err) {
+export function updateNoteFail(err) {
   return { type: UPDATE_NOTE_FAIL, err: err };
 }

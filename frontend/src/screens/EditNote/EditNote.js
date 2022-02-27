@@ -8,7 +8,10 @@ import {
   clearEditNote,
   getSingleNote,
   updateNote,
+  updateNoteFail,
 } from "../../actions/editNoteAction";
+import LoadingMessage from "../../components/LoadingMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const EditNote = () => {
   const editNote = useSelector((state) => state.EditNote);
@@ -18,6 +21,7 @@ const EditNote = () => {
   const [category, setCategory] = useState([]);
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const id = location.pathname.split("/")[2];
     dispatch(getSingleNote(id));
@@ -42,6 +46,8 @@ const EditNote = () => {
   return (
     <div>
       <MainScreen title="Edit Note">
+        <LoadingMessage status={loading} />
+        <ErrorMessage error={error} />
         <Form onSubmit={submitHandler}>
           <Form.Group>
             <Form.Label>Heading</Form.Label>

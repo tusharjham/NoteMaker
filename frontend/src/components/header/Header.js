@@ -1,9 +1,11 @@
 import React from "react";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/userActions";
 import "./Header.css";
+import { NavLink } from "react-router-dom";
 const Header = ({ setSearch }) => {
   const User = useSelector((state) => state.User);
   const { isLoggedIn, userInfo } = User;
@@ -63,9 +65,11 @@ const Header = ({ setSearch }) => {
                   </Link>
                 </Nav.Link>
                 <NavDropdown title={userInfo.name} className="w-25 ">
-                  <NavDropdown.Item className="p-0 p-lg-2  ">
-                    My Profile
-                  </NavDropdown.Item>
+                  <LinkContainer to="/editprofile">
+                    <NavDropdown.Item className="p-0 p-lg-2">
+                      My Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     className="p-0 p-lg-2"
