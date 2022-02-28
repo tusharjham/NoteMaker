@@ -13,10 +13,7 @@ import EditNote from "./screens/EditNote/EditNote";
 import EditProfile from "./screens/EditProfile/EditProfile";
 
 const App = () => {
-  const User = useSelector((state) => state.User);
-  const { isLoggedIn } = User;
   const [search, setSearch] = useState("");
-  // console.log("SEARCH", search);
   return (
     <div className="main">
       <BrowserRouter>

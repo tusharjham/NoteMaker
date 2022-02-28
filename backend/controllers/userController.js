@@ -7,7 +7,6 @@ const userRegister = async (req, res) => {
     const { name, email, password, pic } = req.body;
     const check = await User.findOne({ email });
     if (check) {
-      console.log("reached check");
       res.status(400);
       throw new Error("User already exists");
     }
@@ -21,7 +20,6 @@ const userRegister = async (req, res) => {
       token: token1,
     });
   } catch (error) {
-    console.log(error.toString());
     res.status(400).json(error.toString());
   }
 };

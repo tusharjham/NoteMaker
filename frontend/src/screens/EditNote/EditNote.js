@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
 import { Button, Form } from "react-bootstrap";
-import { createNote } from "../../actions/notesAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   clearEditNote,
   getSingleNote,
   updateNote,
-  updateNoteFail,
 } from "../../actions/editNoteAction";
 import LoadingMessage from "../../components/LoadingMessage";
 import ErrorMessage from "../../components/ErrorMessage";

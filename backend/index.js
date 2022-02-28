@@ -5,20 +5,16 @@ app.use(cookieParser());
 
 const { protect } = require("./middleware/auth");
 const mongo = require("./config/db");
-const notes = require("./data/notes");
-const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute");
 const noteRoute = require("./routes/noteRoute");
 
 dotenv.config();
 mongo();
-// app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.post("/login", (req, res) => {
   try {
-    console.log(req.cookies);
     res.send();
   } catch (err) {
     res.send(err.toString());

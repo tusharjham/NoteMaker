@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
@@ -11,7 +10,7 @@ import { login } from "../../actions/userActions";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.User);
-  const { isLoggedIn, loading, userInfo, error } = userLogin;
+  const { isLoggedIn, loading, error } = userLogin;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

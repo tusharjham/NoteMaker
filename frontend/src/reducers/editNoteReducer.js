@@ -6,7 +6,6 @@ import {
   UPDATE_NOTE_REQUEST,
   UPDATE_NOTE_SUCCESS,
   UPDATE_NOTE_FAIL,
-  CHANGE_STATUS,
 } from "../actions/actionTypes";
 
 const initialEditNoteReducer = {

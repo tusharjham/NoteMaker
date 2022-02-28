@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function (next) {
-  console.log("reached inside middleware of user");
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
   }

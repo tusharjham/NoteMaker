@@ -1,13 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Accordion, Card, Badge } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteNote, listNotes } from "../../actions/notesAction";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
-import { changeStatus } from "../../actions/userActions";
 
 const MyNotes = ({ search }) => {
   const dispatch = useDispatch();

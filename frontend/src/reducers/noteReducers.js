@@ -1,4 +1,3 @@
-import { STATES } from "mongoose";
 import {
   NOTES_FAIL,
   NOTES_REQUEST,

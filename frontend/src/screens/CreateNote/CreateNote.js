@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CreateNote = () => {
-  const editNote = useSelector((state) => state.EditNote);
   const [heading, setHeading] = useState("");
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("");

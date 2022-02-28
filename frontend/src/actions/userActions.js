@@ -77,7 +77,7 @@ export const signup =
 export const logout = () => async (dispatch) => {
   dispatch(logoutStart());
   try {
-    const userOut = await axios.post("/api/userLogout");
+    await axios.post("/api/userLogout");
     dispatch(logoutSuccess());
   } catch (err) {
     dispatch(logoutFail(err.response.data));
@@ -117,7 +117,6 @@ export const editProfile = (name, email, password) => async (dispatch) => {
     );
     dispatch(editProfileSuccess(result.data));
     dispatch(changeStatus());
-    console.log("erache");
   } catch (err) {
     dispatch(editProfileFailure("The email already exist"));
   }
@@ -129,7 +128,6 @@ function editProfileSuccess(data) {
   };
 }
 export function editProfileFailure(err) {
-  console.log(err);
   return {
     type: EDIT_PROFILE_FAIL,
     err,

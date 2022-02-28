@@ -1,5 +1,4 @@
 const noteModel = require("../models/noteModel");
-const cookieParser = require("cookie-parser");
 
 const getNote = async (req, res) => {
   try {
@@ -14,7 +13,6 @@ const getNote = async (req, res) => {
       res.status(200).send(notes);
     }
   } catch (err) {
-    console.log(err);
     res.status(404).send(err.toString());
   }
 };
@@ -34,7 +32,7 @@ const createNote = async (req, res) => {
     const { heading, category, desc } = req.body;
     const user = req.user;
     const note = new noteModel({ heading, category, desc, user });
-    const result = await note.save();
+    await note.save();
     res.status(200).send(note);
   } catch (err) {
     res.status(404).send(err.toString());
@@ -70,10 +68,9 @@ const deleteNote = async (req, res) => {
       throw new Error("No note exist");
     }
     if (req.user._id.toString() != note.user.toString()) {
-      console.log("not verified");
       throw new Error("You cant perform this action");
     }
-    const result = await note.remove();
+    await note.remove();
     res.status(200).send("Note Deleted");
   } catch (err) {
     res.status(400).send(err.toString());
