@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../actions/userActions";
 import "./Header.css";
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,7 @@ const Header = ({ setSearch }) => {
   const User = useSelector((state) => state.User);
   const { isLoggedIn, userInfo } = User;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -34,6 +35,7 @@ const Header = ({ setSearch }) => {
         <Navbar.Brand style={isLoggedIn ? style2 : style1}>
           <Link
             to="/"
+            onClick={isLoggedIn ? (e) => e.preventDefault() : null}
             style={{ textDecoration: "none", color: "rgba(255,255,255,.55)" }}
           >
             NoteMaker

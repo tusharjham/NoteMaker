@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteNote, listNotes } from "../../actions/notesAction";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
+import { changeStatus } from "../../actions/userActions";
 
 const MyNotes = ({ search }) => {
   const dispatch = useDispatch();
@@ -21,13 +22,11 @@ const MyNotes = ({ search }) => {
     }
   };
   useEffect(() => {
+    {
+      !isLoggedIn && navigate("/login");
+    }
     dispatch(listNotes());
-    // if (notes) {
-    //   console.log(notes);
-    // } else {
-    //   console.log("noteundefinded");
-    // }
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
   return (
     <div>
       <MainScreen title={`Welcom back ${userInfo.name}`}>

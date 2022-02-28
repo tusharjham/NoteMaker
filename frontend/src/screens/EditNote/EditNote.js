@@ -30,10 +30,13 @@ const EditNote = () => {
     };
   }, []);
   useEffect(() => {
+    {
+      editNote.success && navigate("/mynotes");
+    }
     setHeading(note.heading);
     setDesc(note.desc);
     setCategory(note.category);
-  }, [note.heading, note.desc, note.category]);
+  }, [note.heading, note.desc, note.category, editNote.success]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(updateNote(note._id, heading, desc, category));

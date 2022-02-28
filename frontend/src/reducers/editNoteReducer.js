@@ -6,9 +6,15 @@ import {
   UPDATE_NOTE_REQUEST,
   UPDATE_NOTE_SUCCESS,
   UPDATE_NOTE_FAIL,
+  CHANGE_STATUS,
 } from "../actions/actionTypes";
 
-const initialEditNoteReducer = { loading: false, error: "", note: [] };
+const initialEditNoteReducer = {
+  loading: false,
+  error: "",
+  note: [],
+  success: false,
+};
 
 export const editNoteReducer = (state = initialEditNoteReducer, action) => {
   switch (action.type) {
@@ -21,9 +27,9 @@ export const editNoteReducer = (state = initialEditNoteReducer, action) => {
     case UPDATE_NOTE_FAIL:
       return { ...state, error: action.err, loading: false };
     case UPDATE_NOTE_SUCCESS:
-      return { ...state };
+      return { ...state, loading: false, error: "", success: true };
     case CLEAR_EDIT_NOTE:
-      return { loading: false, error: "", note: [] };
+      return { loading: false, error: "", note: [], success: false };
     default:
       return state;
   }

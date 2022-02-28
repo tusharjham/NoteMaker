@@ -1,8 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./LandingPage.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const LandingPage = () => {
+  const user = useSelector((state) => state.User);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    {
+      user.isLoggedIn && navigate("/mynotes");
+    }
+  }, [user.isLoggedIn]);
   return (
     <div className="landingPage">
       <div className="landing-page-container">

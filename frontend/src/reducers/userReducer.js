@@ -11,6 +11,7 @@ import {
   EDIT_PROFILE_START,
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
+  CHANGE_STATUS,
 } from "../actions/actionTypes";
 
 const initialUserState = {
@@ -18,6 +19,7 @@ const initialUserState = {
   loading: false,
   userInfo: {},
   error: "",
+  success: false,
 };
 
 export const userReducer = (state = initialUserState, action) => {
@@ -41,6 +43,7 @@ export const userReducer = (state = initialUserState, action) => {
       return { ...state, isLoggedIn: false, loading: false, error: action.err };
     case LOGOUT_SUCCESS:
       return {
+        ...state,
         isLoggedIn: false,
         userInfo: {},
         loading: false,
@@ -58,9 +61,12 @@ export const userReducer = (state = initialUserState, action) => {
         },
         loading: false,
         error: "",
+        success: true,
       };
     case EDIT_PROFILE_FAIL:
       return { ...state, loading: false, error: action.err };
+    case CHANGE_STATUS:
+      return { ...state, success: false };
     default:
       return state;
   }

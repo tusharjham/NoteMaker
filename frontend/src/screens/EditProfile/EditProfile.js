@@ -4,7 +4,11 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
-import { editProfile, editProfileFailure } from "../../actions/userActions";
+import {
+  changeStatus,
+  editProfile,
+  editProfileFailure,
+} from "../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -14,12 +18,21 @@ const EditProfile = () => {
   const { userInfo } = User;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [typeemail, setTypeEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
   }, [userInfo.name, userInfo.email]);
+  useEffect(() => {
+    {
+      !User.isLoggedIn && navigate("/login");
+    }
+    {
+      User.success === true && navigate("/mynotes");
+    }
+  }, [User.success, User.isLoggedIn]);
 
   const resetDefault = () => {
     setName(userInfo.name);
@@ -32,11 +45,10 @@ const EditProfile = () => {
     try {
       e.preventDefault();
       if (confirmPassword == password) {
-        dispatch(editProfile(name, email, password));
+        dispatch(editProfile(name, typeemail, password));
       } else {
         throw new Error("Password Doesn't match");
       }
-      navigate("/mynotes");
     } catch (err) {
       dispatch(editProfileFailure(err.toString()));
     }
@@ -63,9 +75,10 @@ const EditProfile = () => {
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder={`Enter to change or just retype your email.. Your email: ${email}`}
+              required={true}
+              value={typeemail}
+              onChange={(e) => setTypeEmail(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-1">

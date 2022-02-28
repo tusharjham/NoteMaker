@@ -44,11 +44,7 @@ export const updateNote = (id, heading, desc, category) => async (dispatch) => {
         "Content-type": "application/json",
       },
     };
-    const { data } = await axios.put(
-      "/api/updateNote",
-      { id, heading, category, desc },
-      config
-    );
+    await axios.put("/api/updateNote", { id, heading, category, desc }, config);
     dispatch(updateNoteSuccess());
   } catch (err) {
     dispatch(updateNoteFail(err.toString()));

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
 import { Button, Form } from "react-bootstrap";
 import { createNote } from "../../actions/notesAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CreateNote = () => {
+  const editNote = useSelector((state) => state.EditNote);
   const [heading, setHeading] = useState("");
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("");
@@ -16,6 +17,7 @@ const CreateNote = () => {
     dispatch(createNote(heading, desc, category));
     // navigate("/mynotes");
   };
+
   const resetDefault = () => {
     setHeading("");
     setDesc("");

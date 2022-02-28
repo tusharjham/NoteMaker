@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import {
+  CHANGE_STATUS,
   EDIT_PROFILE_FAIL,
   EDIT_PROFILE_START,
   EDIT_PROFILE_SUCCESS,
@@ -116,6 +116,8 @@ export const editProfile = (name, email, password) => async (dispatch) => {
       config
     );
     dispatch(editProfileSuccess(result.data));
+    dispatch(changeStatus());
+    console.log("erache");
   } catch (err) {
     dispatch(editProfileFailure("The email already exist"));
   }
@@ -131,5 +133,11 @@ export function editProfileFailure(err) {
   return {
     type: EDIT_PROFILE_FAIL,
     err,
+  };
+}
+
+export function changeStatus() {
+  return {
+    type: CHANGE_STATUS,
   };
 }

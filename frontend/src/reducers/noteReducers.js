@@ -11,7 +11,11 @@ import {
   NOTE_DELETE_SUCCESS,
 } from "../actions/actionTypes";
 
-const initialNoteState = { loading: false, error: "", notes: [] };
+const initialNoteState = {
+  loading: false,
+  error: "",
+  notes: [],
+};
 
 export const noteReducer = (state = initialNoteState, action) => {
   switch (action.type) {
