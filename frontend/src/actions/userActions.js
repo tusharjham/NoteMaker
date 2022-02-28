@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   CHANGE_STATUS,
+  CLEAR_USER_AUTH,
   EDIT_PROFILE_FAIL,
   EDIT_PROFILE_START,
   EDIT_PROFILE_SUCCESS,
@@ -137,5 +138,10 @@ export function editProfileFailure(err) {
 export function changeStatus() {
   return {
     type: CHANGE_STATUS,
+  };
+}
+export function changeUserAuth() {
+  return {
+    type: CLEAR_USER_AUTH,
   };
 }

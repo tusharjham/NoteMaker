@@ -4,7 +4,11 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
-import { editProfile, editProfileFailure } from "../../actions/userActions";
+import {
+  changeUserAuth,
+  editProfile,
+  editProfileFailure,
+} from "../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -28,6 +32,9 @@ const EditProfile = () => {
     {
       User.success === true && navigate("/mynotes");
     }
+    return () => {
+      dispatch(changeUserAuth());
+    };
   }, [User.success, User.isLoggedIn]);
 
   const resetDefault = () => {

@@ -12,6 +12,8 @@ import {
   EDIT_PROFILE_SUCCESS,
   EDIT_PROFILE_FAIL,
   CHANGE_STATUS,
+  CLEAR_AUTH,
+  CLEAR_USER_AUTH,
 } from "../actions/actionTypes";
 
 const initialUserState = {
@@ -67,6 +69,8 @@ export const userReducer = (state = initialUserState, action) => {
       return { ...state, loading: false, error: action.err };
     case CHANGE_STATUS:
       return { ...state, success: false };
+    case CLEAR_USER_AUTH:
+      return { ...state, loading: false, error: "" };
     default:
       return state;
   }

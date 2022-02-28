@@ -6,6 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
 import MainScreen from "../../components/MainScreen";
 import { login } from "../../actions/userActions";
+import { changeUserAuth } from "../../actions/userActions";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,10 @@ const LoginPage = () => {
     {
       isLoggedIn && navigate("/mynotes");
     }
-  });
+    return () => {
+      dispatch(changeUserAuth());
+    };
+  }, [isLoggedIn]);
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));

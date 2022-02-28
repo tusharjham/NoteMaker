@@ -14,12 +14,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pic: {
-    type: String,
-    required: true,
-    default:
-      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
-  },
 });
 
 userSchema.pre("save", async function (next) {

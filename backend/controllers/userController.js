@@ -10,9 +10,11 @@ const userRegister = async (req, res) => {
       res.status(400);
       throw new Error("User already exists");
     }
-    const userData = User.create({ name, email, password, pic });
+    const userData = await User.create({ name, email, password, pic });
     const token1 = generateToken(userData._id);
-    res.header("login", token1);
+    res.cookie("login", token1, {
+      httpOnly: true,
+    });
     res.status(200).send({
       _id: userData._id,
       name,
@@ -33,14 +35,12 @@ const userLogin = async (req, res) => {
     if (check) {
       const token1 = generateToken(userLogger._id);
       res.cookie("login", token1, {
-        httpOnly: false,
+        httpOnly: true,
       });
-      res.header("login-token", token1);
       res.status(200).send({
         _id: userLogger._id,
         name: userLogger.name,
         email,
-        pic: userLogger.pic,
         token: token1,
       });
     } else {

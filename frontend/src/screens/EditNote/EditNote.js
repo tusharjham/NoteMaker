@@ -58,6 +58,7 @@ const EditNote = () => {
               className="w-25"
               value={heading}
               onChange={(e) => setHeading(e.target.value)}
+              required={true}
             />
           </Form.Group>
           <Form.Group>
@@ -68,6 +69,7 @@ const EditNote = () => {
               className="w-75"
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
+              required={true}
             />
           </Form.Group>
           <Form.Group>
@@ -78,6 +80,7 @@ const EditNote = () => {
               className="w-25"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              required={true}
             />
           </Form.Group>
           <Form.Group className="mt-3 ">

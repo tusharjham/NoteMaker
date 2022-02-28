@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { signup, signupFail } from "../../actions/userActions";
+import { Link, useNavigate } from "react-router-dom";
+import { changeUserAuth, signup, signupFail } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import LoadingMessage from "../../components/LoadingMessage";
 import MainScreen from "../../components/MainScreen";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const User = useSelector((state) => state.User);
   const { loading, error } = User;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  useEffect(() => {
+    {
+      User.isLoggedIn && navigate("/mynotes");
+    }
+    return () => {
+      dispatch(changeUserAuth());
+    };
+  }, [User.isLoggedIn]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -75,10 +84,6 @@ const RegisterPage = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-            </Form.Group>
-            <Form.Group className="mb-1">
-              <Form.Label>Profile Picture</Form.Label>
-              <Form.Control type="file" />
             </Form.Group>
             <Button variant="success" type="Submit" className="mt-3">
               Submit
