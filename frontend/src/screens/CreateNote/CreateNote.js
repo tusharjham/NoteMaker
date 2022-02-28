@@ -14,14 +14,18 @@ const CreateNote = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createNote(heading, desc, category));
-    // navigate("/mynotes");
   };
-
   const resetDefault = () => {
     setHeading("");
     setDesc("");
     setCategory("");
   };
+  const Note = useSelector((state) => state.Notes);
+  useEffect(() => {
+    {
+      Note.success && navigate("/mynotes");
+    }
+  });
   return (
     <div>
       <MainScreen title="Create Note">

@@ -8,12 +8,14 @@ import {
   NOTE_DELETE_FAILURE,
   NOTE_DELETE_REQUEST,
   NOTE_DELETE_SUCCESS,
+  CHANGE_STATUS_2,
 } from "../actions/actionTypes";
 
 const initialNoteState = {
   loading: false,
   error: "",
   notes: [],
+  success: false,
 };
 
 export const noteReducer = (state = initialNoteState, action) => {
@@ -33,6 +35,11 @@ export const noteReducer = (state = initialNoteState, action) => {
     case NOTE_CREATE_REQUEST:
       return { ...state, loading: true, error: "" };
     case NOTE_CREATE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+      };
     case NOTE_DELETE_SUCCESS:
       return {
         ...state,
@@ -41,6 +48,8 @@ export const noteReducer = (state = initialNoteState, action) => {
     case NOTE_CREATE_REQUEST_FAIL:
     case NOTE_DELETE_FAILURE:
       return { ...state, loading: false, error: action.err };
+    case CHANGE_STATUS_2:
+      return { ...state, success: false };
     default:
       return state;
   }

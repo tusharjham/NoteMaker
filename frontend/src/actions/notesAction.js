@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  CHANGE_STATUS_2,
   NOTES_FAIL,
   NOTES_REQUEST,
   NOTES_SUCCESS,
@@ -44,6 +45,7 @@ export const createNote = (heading, desc, category) => async (dispatch) => {
       config
     );
     dispatch(noteCreateSuccess(data));
+    dispatch(changeStatus());
   } catch (err) {
     dispatch(noteCreateFail(err.toString()));
   }
@@ -85,4 +87,10 @@ function deleteNoteSuccess() {
 }
 function deleteNoteFailure(err) {
   return { type: NOTE_DELETE_FAILURE, err };
+}
+
+function changeStatus() {
+  return {
+    type: CHANGE_STATUS_2,
+  };
 }
