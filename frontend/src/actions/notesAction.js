@@ -68,11 +68,7 @@ export const deleteNote = (id) => async (dispatch) => {
         "Content-type": "application/json",
       },
     };
-    const { data } = await axios.delete(
-      "/api/deleteNote",
-      { data: { data: id } },
-      config
-    );
+    await axios.delete("/api/deleteNote", { data: { data: id } }, config);
     dispatch(deleteNoteSuccess());
     dispatch(listNotes());
   } catch (e) {

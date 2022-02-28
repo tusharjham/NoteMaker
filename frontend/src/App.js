@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyNotes from "./screens/MyNotes/MyNotes";
 import LoginPage from "./screens/LoginScreen/LoginPage";
 import RegisterPage from "./screens/RegisterScreen/RegisterPage";
-import { useSelector } from "react-redux";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import EditNote from "./screens/EditNote/EditNote";
 import EditProfile from "./screens/EditProfile/EditProfile";

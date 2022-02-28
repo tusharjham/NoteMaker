@@ -40,7 +40,7 @@ const EditProfile = () => {
   const submitHandler = (e) => {
     try {
       e.preventDefault();
-      if (confirmPassword == password) {
+      if (confirmPassword === password) {
         dispatch(editProfile(name, typeemail, password));
       } else {
         throw new Error("Password Doesn't match");
