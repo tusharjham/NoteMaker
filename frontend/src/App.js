@@ -10,6 +10,7 @@ import RegisterPage from "./screens/RegisterScreen/RegisterPage";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import EditNote from "./screens/EditNote/EditNote";
 import EditProfile from "./screens/EditProfile/EditProfile";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/mynotes/createnote" element={<CreateNote />} exact />
           </Routes>
         </main>
+        <Footer />
       </BrowserRouter>
     </div>
   );
