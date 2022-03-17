@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
 app.use(cookieParser());
+const path = require("path");
 
 const { protect } = require("./middleware/auth");
 const mongo = require("./config/db");
@@ -22,6 +23,21 @@ app.post("/login", (req, res) => {
 });
 app.use(userRoute);
 app.use(noteRoute);
+
+// --------------------deployment----------------------
+const dirname = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(dirname, "/frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(dirname, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
+// --------------------deployment----------------------
 const PORT = 5000 || process.env.port;
 
 app.listen(PORT, () => {
