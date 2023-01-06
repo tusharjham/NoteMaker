@@ -12,7 +12,7 @@ NoteMaker is a safe place for all your notes.
 
 ## Demo
 
-https://mern-notemaker.herokuapp.com/
+https://notemaker.onrender.com
 
 ## Site
 
@@ -27,13 +27,13 @@ https://mern-notemaker.herokuapp.com/
 Clone the project
 
 ```bash
-  git clone https://github.com/tusharjham/MERN-NoteMaker.git
+  https://github.com/tusharjham/NoteMaker.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd MERN-NoteMaker
+  cd NoteMaker
 ```
 
 Install dependencies
