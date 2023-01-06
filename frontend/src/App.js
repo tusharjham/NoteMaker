@@ -33,7 +33,6 @@ const App = () => {
             <Route path="/mynotes/createnote" element={<CreateNote />} exact />
           </Routes>
         </main>
-        <Footer />
       </BrowserRouter>
     </div>
   );
